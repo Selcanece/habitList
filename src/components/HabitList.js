@@ -19,19 +19,19 @@ const HabitList = () => {
     };
 
     return (
-        <div>
+        <div className="min-h-screen bg-gray-50">
             {/* Header */}
-            <nav className="bg-white shadow-lg mb-8">
+            <nav className="bg-white shadow-lg fixed top-0 left-0 right-0 z-10">
                 <div className="max-w-6xl mx-auto px-4">
-                    <div className="flex justify-between items-center py-4">
-                        <div className="text-xl font-bold text-blue-600">Alışkanlık Takipçisi</div>
-                        <div className="flex items-center gap-4">
-                            <span className="text-gray-600">{user?.email}</span>
+                    <div className="flex flex-row justify-between items-center py-3">
+                        <div className="text-lg font-bold text-blue-600">Alışkanlık Takipçisi</div>
+                        <div className="flex items-center gap-3">
+                            <span className="text-gray-600 text-sm hidden sm:inline">{user?.email}</span>
                             <button
                                 onClick={() => dispatch(logout())}
-                                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                                className="bg-red-500 text-white px-3 py-1.5 rounded text-sm hover:bg-red-600"
                             >
-                                Çıkış Yap
+                                Çıkış
                             </button>
                         </div>
                     </div>
@@ -39,65 +39,67 @@ const HabitList = () => {
             </nav>
 
             {/* Main Content */}
-            <div className="max-w-2xl mx-auto px-4">
-                <h1 className="text-3xl font-bold mb-8">Günlük Alışkanlıklarım</h1>
-
-                <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-                    <h2 className="text-xl font-semibold mb-4">Yeni Alışkanlık Ekle</h2>
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="flex gap-2">
+            <div className="max-w-xl mx-auto px-4 pt-16 pb-6">
+                <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+                    <h2 className="text-lg font-semibold mb-3">Yeni Alışkanlık Ekle</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="space-y-3">
                             <input
                                 type="text"
                                 value={newHabitName}
                                 onChange={(e) => setNewHabitName(e.target.value)}
                                 placeholder="Yeni alışkanlık ekle..."
-                                className="flex-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+                                className="w-full p-2.5 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400 text-base"
                             />
-                            <select
-                                value={frequency}
-                                onChange={(e) => setFrequency(e.target.value)}
-                                className="p-2 border rounded"
-                            >
-                                <option value="daily">Günlük</option>
-                                <option value="weekly">Haftalık</option>
-                            </select>
-                            <button
-                                type="submit"
-                                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                            >
-                                Ekle
-                            </button>
+                            <div className="flex gap-2">
+                                <select
+                                    value={frequency}
+                                    onChange={(e) => setFrequency(e.target.value)}
+                                    className="flex-1 p-2.5 border rounded text-base bg-white"
+                                >
+                                    <option value="daily">Günlük</option>
+                                    <option value="weekly">Haftalık</option>
+                                </select>
+                                <button
+                                    type="submit"
+                                    className="bg-blue-500 text-white px-6 py-2.5 rounded hover:bg-blue-600 text-base min-w-[100px]"
+                                >
+                                    Ekle
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-3">
                     {habits.map(habit => (
                         <div
                             key={habit.id}
-                            className="flex items-center justify-between p-4 bg-white rounded-lg shadow"
+                            className="bg-white rounded-lg shadow p-4"
                         >
-                            <div className="flex items-center gap-4">
+                            <div className="flex items-start gap-3">
                                 <input
                                     type="checkbox"
                                     checked={habit.completed}
                                     onChange={() => dispatch(toggleHabit(habit.id))}
-                                    className="w-5 h-5"
+                                    className="mt-1.5 w-5 h-5"
                                 />
-                                <div>
-                                    <h3 className="font-semibold">{habit.name}</h3>
-                                    <p className="text-sm text-gray-500">
+                                <div className="flex-1">
+                                    <div className="flex items-center justify-between gap-2">
+                                        <h3 className="font-semibold text-base">{habit.name}</h3>
+                                        <button
+                                            onClick={() => dispatch(deleteHabit(habit.id))}
+                                            className="text-red-500 hover:text-red-700 text-sm px-2 py-1"
+                                        >
+                                            Sil
+                                        </button>
+                                    </div>
+                                    <p className="text-sm text-gray-500 mt-1">
                                         {habit.frequency === 'daily' ? 'Günlük' : 'Haftalık'} -
                                         Seri: {habit.streak} gün
                                     </p>
                                 </div>
                             </div>
-                            <button
-                                onClick={() => dispatch(deleteHabit(habit.id))}
-                                className="text-red-500 hover:text-red-700"
-                            >
-                                Sil
-                            </button>
                         </div>
                     ))}
                 </div>
