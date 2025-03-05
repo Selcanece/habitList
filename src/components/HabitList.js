@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addHabit, toggleHabit, deleteHabit } from '../features/habitsSlice';
+import { addHabit, toggleHabit, deleteHabit, resetDailyHabits } from '../features/habitsSlice';
 import { logout } from '../features/authSlice';
 
 const HabitList = () => {
@@ -10,12 +10,29 @@ const HabitList = () => {
     const user = useSelector(state => state.auth.user);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(resetDailyHabits());
+        const interval = setInterval(() => {
+            dispatch(resetDailyHabits());
+        }, 60000);
+
+        return () => clearInterval(interval);
+    }, [dispatch]);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (newHabitName.trim()) {
             dispatch(addHabit({ name: newHabitName, frequency }));
             setNewHabitName('');
         }
+    };
+
+    const handleToggle = (habitId) => {
+        dispatch(toggleHabit(habitId));
+    };
+
+    const handleDelete = (habitId) => {
+        dispatch(deleteHabit(habitId));
     };
 
     return (
@@ -81,14 +98,14 @@ const HabitList = () => {
                                 <input
                                     type="checkbox"
                                     checked={habit.completed}
-                                    onChange={() => dispatch(toggleHabit(habit.id))}
+                                    onChange={() => handleToggle(habit.id)}
                                     className="mt-1.5 w-5 h-5"
                                 />
                                 <div className="flex-1">
                                     <div className="flex items-center justify-between gap-2">
                                         <h3 className="font-semibold text-base">{habit.name}</h3>
                                         <button
-                                            onClick={() => dispatch(deleteHabit(habit.id))}
+                                            onClick={() => handleDelete(habit.id)}
                                             className="text-red-500 hover:text-red-700 text-sm px-2 py-1"
                                         >
                                             Sil
@@ -108,4 +125,4 @@ const HabitList = () => {
     );
 };
 
-export default HabitList; 
+export default HabitList;
