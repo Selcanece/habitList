@@ -37,7 +37,7 @@ const HabitList = () => {
 
     return (
         <div className="min-h-screen bg-gray-50">
-            {/* Header */}
+
             <nav className="bg-white shadow-lg fixed top-0 left-0 right-0 z-10">
                 <div className="max-w-6xl mx-auto px-4">
                     <div className="flex flex-row justify-between items-center py-3">
@@ -55,7 +55,7 @@ const HabitList = () => {
                 </div>
             </nav>
 
-            {/* Main Content */}
+
             <div className="max-w-xl mx-auto px-4 pt-16 pb-6">
                 <div className="bg-white rounded-lg shadow-md p-4 mb-4">
                     <h2 className="text-lg font-semibold mb-3">Yeni Alışkanlık Ekle</h2>

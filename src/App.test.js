@@ -51,11 +51,11 @@ test('Boş form kontrolü çalışıyor', () => {
     </Provider>
   );
 
-  // Giriş formundaki input'ları bul
+
   const emailInput = screen.getByPlaceholderText('ornek@email.com');
   const passwordInput = screen.getByPlaceholderText('********');
 
-  // Input'ların required özelliğini kontrol et
+
   expect(emailInput).toHaveAttribute('required');
   expect(passwordInput).toHaveAttribute('required');
 });

@@ -18,7 +18,7 @@ const Register = ({ onSwitchToLogin }) => {
             return;
         }
 
-        // Normalde bir API çağrısı yapılır, şimdilik local kayıt yapıyoruz
+
         const userData = {
             email,
             name,
@@ -26,7 +26,7 @@ const Register = ({ onSwitchToLogin }) => {
             joinDate: new Date().toISOString()
         };
 
-        // Local storage'a kullanıcı bilgilerini kaydedelim
+
         const users = JSON.parse(localStorage.getItem('users') || '[]');
         const userExists = users.some(user => user.email === email);
 
@@ -35,7 +35,7 @@ const Register = ({ onSwitchToLogin }) => {
             return;
         }
 
-        users.push({ ...userData, password }); // Gerçek uygulamada şifre asla plain text saklanmaz
+        users.push({ ...userData, password });
         localStorage.setItem('users', JSON.stringify(users));
 
         dispatch(loginSuccess(userData));

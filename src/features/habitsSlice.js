@@ -100,7 +100,7 @@ export const habitsSlice = createSlice({
 
             if (state.lastResetDate !== todayString) {
                 state.habits = state.habits.map(habit => {
-                    // Günlük alışkanlıkları her gün sıfırla
+
                     if (habit.frequency === 'daily') {
                         if (!habit.completed) {
                             habit.streak = 0;
@@ -111,9 +111,9 @@ export const habitsSlice = createSlice({
                         };
                     }
 
-                    // Haftalık alışkanlıkları sadece Pazartesi günü sıfırla
+
                     if (habit.frequency === 'weekly' && isMonday) {
-                        // Eğer geçen hafta tamamlanmadıysa seriyi sıfırla
+
                         if (!habit.completed) {
                             habit.streak = 0;
                         }
