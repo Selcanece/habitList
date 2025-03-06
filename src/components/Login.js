@@ -11,7 +11,6 @@ const Login = ({ onSwitchToRegister }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // Local storage'dan kullanıcıları al
         const users = JSON.parse(localStorage.getItem('users') || '[]');
         const user = users.find(u => u.email === email && u.password === password);
 

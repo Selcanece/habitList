@@ -112,7 +112,7 @@ const Register = ({ onSwitchToLogin }) => {
                     type="submit"
                     className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-200"
                 >
-                    Kayıt Ol
+                    Hesap Oluştur
                 </button>
 
                 <div className="text-center mt-4">
